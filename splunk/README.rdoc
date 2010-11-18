@@ -29,15 +29,15 @@ provided class 'tg_yumrepo' to provide the .repo files on nodes.
 
 ==== For your indexer
 
-node 'splunk.company.com' {
-  include splunk::server
-}
+  node 'splunk.company.com' {
+    include splunk::server
+  }
 
 ==== For your lightweight forwarders
 
-node 'mail.company.com' {
-  incldue splunk::lwf
-}
+  node 'mail.company.com' {
+    include splunk::lwf
+  }
 
 ==== Caveats
 
