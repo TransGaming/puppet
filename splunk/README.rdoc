@@ -9,7 +9,7 @@ Splunk indexer over SSL and to enforce SSL certificate names.
 
 ==== License
 
-This class is provided under the MIT license. Refer to the accompanying LICENSE 
+This class is provided under the BSD license. Refer to the accompanying LICENSE 
 file for specific details.
 
 === How to use
