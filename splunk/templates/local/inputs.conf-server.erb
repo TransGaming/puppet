@@ -1,0 +1,16 @@
+############################################################################
+## NOTICE: Since changes cannot be made to this file please create new     #
+## apps to facilitate the addition of data inputs.                         #
+############################################################################
+
+[default]
+host = <%= fqdn %>
+
+[splunktcp-ssl:9997]
+compressed = true
+
+[SSL]
+password = ssl password
+requireClientCert = true
+rootCA = $SPLUNK_HOME/etc/certs/cacert.pem
+serverCert = $SPLUNK_HOME/etc/certs/splunk.pem

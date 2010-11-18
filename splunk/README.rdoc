@@ -1,0 +1,54 @@
+== Splunk Puppet Class
+
+=== About
+
+This Splunk class is designed to deploy a Splunk indexer (splunk::server) and a
+number of Splunk lightweight forwarders (splunk::lwf). The design configuration
+files provided are intended to have many forwarders forwarding to a single
+Splunk indexer over SSL and to enforce SSL certificate names.
+
+==== License
+
+This class is provided under the MIT license. Refer to the accompanying LICENSE 
+file for specific details.
+
+=== How to use
+
+This class is designed around having a yum repository set up to provide
+centralized access to the Splunk RPMs. Since Splunk does not have their own
+repository set up at this time the Splunk class depends on an internal and not
+provided class 'tg_yumrepo' to provide the .repo files on nodes.
+
+==== Files to change or add
+
+* Add files/etc/passwd
+* Add hostname in files/etc/local/system/lwf-output.conf (change splunk.company.com)
+* Add SSL certificates (files/etc/certs)
+* Add sslPassword in files/etc/local/system/lwf-output.conf and templates/local/inputs.conf-server.erb
+* Add your Splunk license file (copy the free one, or the splunk.license-forwarder)
+
+==== For your indexer
+
+node 'splunk.company.com' {
+  include splunk::server
+}
+
+==== For your lightweight forwarders
+
+node 'mail.company.com' {
+  incldue splunk::lwf
+}
+
+==== Caveats
+
+In its current implementation splunk::lwf and splunk::server both include
+splunk::base to get common files provided to each subclass. This makes it
+difficult to have a default node that includes splunk::lwf and a specific node
+which is a splunk::server. Your puppetmaster logs will fill up with warnings,
+but they appear to be both nonfatal and such that they do not blow away the
+splunk::server with splunk::lwf configuration.
+
+We also store SSL passwords in plaintext. Please be aware of this as it will
+require some security measures to ensure that unauthorized parties can not read
+the files which contain passwords. Take care for your puppetmaster as well as
+any source control (such as GitHub).
